@@ -24,7 +24,7 @@ Follow these instructions to set up the project locally.
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/skin-lesion-segmentation.git
+    git clone https://github.com/martinijfb/Skin-Lesion-Segmentation.git
     cd skin-lesion-segmentation
     ```
 
