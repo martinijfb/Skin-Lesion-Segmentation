@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import transforms
+from PIL import Image
+import numpy as np
 
 # Define the UNet model
 class DoubleConv(nn.Module):
@@ -55,7 +57,7 @@ class UNet(nn.Module):
         # Bottleneck
         bottleneck = self.bottleneck(F.max_pool2d(enc4, 2))
 
-        # Decoder with skip connections
+        # Decoder
         dec4 = self.upconv4(bottleneck)
         dec4 = torch.cat((dec4, enc4), dim=1)
         dec4 = self.decoder4(dec4)
@@ -81,14 +83,24 @@ def load_model(device="cpu"):
     model = UNet(in_channels=3, out_channels=1)
     model.load_state_dict(torch.load("Models/unet_skin_lesion_segmentation.pth", map_location=torch.device('cpu')))
     model.to(device)
-    model.eval()  # Set to evaluation mode
+    model.eval()
     return model
 
-
+# Function to preprocess an image
 def preprocess_image(image):
     transform = transforms.Compose([
         transforms.Resize((256, 256)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
-    return transform(image).unsqueeze(0)  # Add batch dimension
+    return transform(image).unsqueeze(0)
+
+# Function to generate a mask from an image
+def generate_mask(model, image, image_size, device="cpu"):
+    input_tensor = preprocess_image(image).to(device)
+    with torch.no_grad():
+        output = model(input_tensor)
+        output = torch.sigmoid(output).cpu().squeeze().numpy()
+    binary_mask = Image.fromarray((output > 0.5).astype(np.uint8) * 255)
+    output_resized = binary_mask.resize(image_size, Image.NEAREST)
+    return output_resized
