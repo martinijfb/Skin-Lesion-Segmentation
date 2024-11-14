@@ -81,7 +81,7 @@ class UNet(nn.Module):
 # Function to load the model with weights
 def load_model(device="cpu"):
     model = UNet(in_channels=3, out_channels=1)
-    model.load_state_dict(torch.load("Models/unet_skin_lesion_segmentation.pth", map_location=torch.device('cpu')))
+    model.load_state_dict(torch.load("Models/unet_skin_lesion_segmentation.pth", map_location=torch.device('cpu'), weights_only=True))
     model.to(device)
     model.eval()
     return model
