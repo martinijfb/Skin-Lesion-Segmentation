@@ -4,6 +4,7 @@ import torch.nn.functional as F
 from torchvision import transforms
 from PIL import Image
 import numpy as np
+import streamlit as st
 
 # Define the UNet model
 class DoubleConv(nn.Module):
@@ -79,6 +80,7 @@ class UNet(nn.Module):
         return output
 
 # Function to load the model with weights
+@st.cache_resource
 def load_model(device="cpu"):
     model = UNet(in_channels=3, out_channels=1)
     model.load_state_dict(torch.load("Models/unet_skin_lesion_segmentation.pth", map_location=torch.device('cpu'), weights_only=True))
@@ -104,3 +106,7 @@ def generate_mask(model, image, image_size, device="cpu"):
     binary_mask = Image.fromarray((output > 0.5).astype(np.uint8) * 255)
     output_resized = binary_mask.resize(image_size, Image.NEAREST)
     return output_resized
+
+@st.cache_resource
+def find_device():
+    return torch.device("cuda" if torch.cuda.is_available() else "cpu")
