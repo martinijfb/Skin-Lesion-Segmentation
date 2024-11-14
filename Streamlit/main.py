@@ -1,21 +1,16 @@
 import streamlit as st
-import torch
 from PIL import Image
 import matplotlib.pyplot as plt
-from unet_module import load_model, generate_mask
+from unet_module import load_model, generate_mask, find_device
 
-
-@st.cache_resource
-def load_model_and_device():
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    return load_model(device=device), device
 
 def main():
     st.title("Skin Lesion Segmentation")
     st.write("Upload an image of a skin lesion to segment it using a UNet model.")
 
-    # Load the model
-    model, device = load_model_and_device()
+    # Load the model and device
+    device = find_device()
+    model = load_model(device=device)
 
     # Sample image option
     use_sample = st.checkbox("Use Sample Image")
