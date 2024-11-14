@@ -43,8 +43,10 @@ def main():
     st.subheader("Segmentation Result")
     fig, ax = plt.subplots(1, 2, figsize=(10, 5))
     ax[0].imshow(image)
+    ax[0].axis("off")
     ax[0].set_title("Original Image")
     ax[1].imshow(mask, cmap="gray")
+    ax[1].axis("off")
     ax[1].set_title("Predicted Mask")
     st.pyplot(fig)
 
