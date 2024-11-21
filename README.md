@@ -1,6 +1,6 @@
 # Skin Lesion Segmentation with UNet and Streamlit
 
-This project implements a deep learning model for skin lesion segmentation using a UNet architecture. The model is developed in PyTorch and deployed with an interactive Streamlit application, allowing users to upload skin lesion images and view segmentation results in real-time. Evaluation metrics, including Dice Coefficient and Intersection over Union (IoU), are also displayed to assess model performance.
+This project implements a deep learning model for skin lesion segmentation using a UNet architecture. The model is developed in PyTorch and deployed with an interactive Streamlit application, allowing users to upload skin lesion images and view segmentation results in real-time.
 
 ## Streamlit Application
 [Explore the app 😁](https://skin-lesion-segmentation-9psggzn9a3bylbynsrxzjw.streamlit.app/)
