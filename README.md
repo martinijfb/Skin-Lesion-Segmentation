@@ -57,10 +57,10 @@ Follow these instructions to set up the project locally.
 ### Project Structure
 
 - **DATA/**: Contains the dataset for training and testing. Note that the data is not included in the repository due to its size. You can download the dataset from the [ISIC 2016 Challenge](https://challenge.isic-archive.com/data/).
-  - `TestImages/`: Images for testing the model.
-  - `TestMasks/`: Ground truth masks for testing.
-  - `TrainingImages/`: Images for training the model.
-  - `TrainingMasks/`: Ground truth masks for training.
+  - `test_images/`: Images for testing the model.
+  - `test_masks/`: Ground truth masks for testing.
+  - `training_images/`: Images for training the model.
+  - `training_masks/`: Ground truth masks for training.
 
 - **Experimenting/**: Contains Jupyter notebooks for experimenting with the model.
   - `skin_lesion.ipynb`: Notebook for training and evaluating the UNet model.
